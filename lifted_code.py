@@ -314,6 +314,7 @@ while not game_over:
 
         # if player clses the window
         if event.type == pygame.QUIT:
+            pygame.quit()
             sys.exit()
 
         # if player moves the mouse, their piece moves at the top of the screen
