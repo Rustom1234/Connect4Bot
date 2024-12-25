@@ -5,6 +5,7 @@ import sys
 # Constants
 ROWS = 6
 COLS = 7
+
 SQUARESIZE = 100
 RADIUS = SQUARESIZE // 2 - 5
 WIDTH = COLS * SQUARESIZE
@@ -20,9 +21,11 @@ BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
+screen = pygame.display.set_mode(SIZE)
+
 
 def create_board():
-    return np.zeros((ROWS, COLS), dtype=int)
+    return np.zeros((ROWS, COLS))
 
 
 def drop_piece(board, row, col, piece):
@@ -40,42 +43,48 @@ def get_next_open_row(board, col):
 
 
 def winning_move(board, piece):
-    # Check horizontal locations
+    """
+    Checks if the current board state results in a winning move for the given piece.
+    """
+    # Horizontal Check
     for row in range(ROWS):
         for col in range(COLS - 3):
             if all(board[row][col + i] == piece for i in range(4)):
                 return True
 
-    # Check vertical locations
+    # Vertical Check
     for col in range(COLS):
         for row in range(ROWS - 3):
             if all(board[row + i][col] == piece for i in range(4)):
                 return True
 
-    # Check positive diagonals
-    for row in range(ROWS - 3):
-        for col in range(COLS - 3):
-            if all(board[row + i][col + i] == piece for i in range(4)):
+    # Positive Slope Diagonal Check
+    for col in range(COLS - 3):
+        for row in range(3, ROWS):
+            if all(board[row - i][col + i] == piece for i in range(4)):
                 return True
 
-    # Check negative diagonals
-    for row in range(3, ROWS):
-        for col in range(COLS - 3):
-            if all(board[row - i][col + i] == piece for i in range(4)):
+    # Negative Slope Diagonal Check
+    for col in range(COLS - 3):
+        for row in range(ROWS - 3):
+            if all(board[row + i][col + i] == piece for i in range(4)):
                 return True
 
     return False
 
 
-def draw_board(board, screen):
-    for row in range(ROWS):
-        for col in range(COLS):
-            pygame.draw.rect(screen, BLUE, (col * SQUARESIZE, (row + 1) * SQUARESIZE, SQUARESIZE, SQUARESIZE))
+def draw_board(board):
+    """
+    Draws the game board using Pygame.
+    """
+    for col in range(COLS):
+        for row in range(ROWS):
+            pygame.draw.rect(screen, BLUE, (col * SQUARESIZE, row * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
+            color = BLACK  # Default empty slot
             if board[row][col] == PLAYER_PIECE:
-                pygame.draw.circle(screen, RED, (col * SQUARESIZE + SQUARESIZE // 2, (row + 1) * SQUARESIZE + SQUARESIZE // 2), RADIUS)
+                color = RED
             elif board[row][col] == AI_PIECE:
-                pygame.draw.circle(screen, YELLOW, (col * SQUARESIZE + SQUARESIZE // 2, (row + 1) * SQUARESIZE + SQUARESIZE // 2), RADIUS)
-            else:
-                pygame.draw.circle(screen, BLACK, (col * SQUARESIZE + SQUARESIZE // 2, (row + 1) * SQUARESIZE + SQUARESIZE // 2), RADIUS)
+                color = YELLOW
+            pygame.draw.circle(screen, color, (col * SQUARESIZE + SQUARESIZE // 2, row * SQUARESIZE + SQUARESIZE + SQUARESIZE // 2), RADIUS)
     pygame.display.update()
     
