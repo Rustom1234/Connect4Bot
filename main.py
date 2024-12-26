@@ -1,11 +1,10 @@
-import numpy as np
 import pygame
-import sys
-import random
 import math
+import numpy as np
+import random
+import sys
 from threading import Timer
 
-# Constants
 ROWS = 6
 COLS = 7
 
@@ -46,28 +45,24 @@ class Board:
         for row in range(ROWS - 1, -1, -1):
             if self.board[row][col] == 0:
                 return row
-        return None  # Column is full
+        return None  
 
     def winning_move(self, piece):
-        # Horizontal Check
         for row in range(ROWS):
             for col in range(COLS - 3):
                 if all(self.board[row][col + i] == piece for i in range(4)):
                     return True
 
-        # Vertical Check
         for col in range(COLS):
             for row in range(ROWS - 3):
                 if all(self.board[row + i][col] == piece for i in range(4)):
                     return True
 
-        # Positive Slope Diagonal Check
         for row in range(3, ROWS):
             for col in range(COLS - 3):
                 if all(self.board[row - i][col + i] == piece for i in range(4)):
                     return True
 
-        # Negative Slope Diagonal Check
         for row in range(ROWS - 3):
             for col in range(COLS - 3):
                 if all(self.board[row + i][col + i] == piece for i in range(4)):
@@ -88,48 +83,40 @@ class Board:
     def score_window(self, window, piece):
         opp_piece = PLAYER_PIECE if piece == AI_PIECE else AI_PIECE
         score = 0
-
         if window.count(piece) == 4:
             score += 100
         elif window.count(piece) == 3 and window.count(0) == 1:
             score += 10
         elif window.count(piece) == 2 and window.count(0) == 2:
             score += 5
-
         if window.count(opp_piece) == 3 and window.count(0) == 1:
             score -= 20
-
         return score
 
     def score_position(self, piece):
         score = 0
-
-        # Score center column
+        
         center_array = [int(i) for i in list(self.board[:, COLS // 2])]
         center_count = center_array.count(piece)
         score += center_count * 6
 
-        # Score Horizontal
         for row in range(ROWS):
             row_array = [int(i) for i in list(self.board[row, :])]
             for col in range(COLS - WINDOW_LEN + 1):
                 window = row_array[col:col + WINDOW_LEN]
                 score += self.score_window(window, piece)
 
-        # Score Vertical
         for col in range(COLS):
             col_array = [int(i) for i in list(self.board[:, col])]
             for row in range(ROWS - WINDOW_LEN + 1):
                 window = col_array[row:row + WINDOW_LEN]
                 score += self.score_window(window, piece)
 
-        # Score Positive Diagonals
         for row in range(ROWS - WINDOW_LEN + 1):
             for col in range(COLS - WINDOW_LEN + 1):
                 window = [self.board[row + i][col + i] for i in range(WINDOW_LEN)]
                 score += self.score_window(window, piece)
 
-        # Score Negative Diagonals
         for row in range(WINDOW_LEN - 1, ROWS):
             for col in range(COLS - WINDOW_LEN + 1):
                 window = [self.board[row - i][col + i] for i in range(WINDOW_LEN)]
@@ -141,7 +128,7 @@ class Board:
         for col in range(COLS):
             for row in range(ROWS):
                 pygame.draw.rect(screen, BLUE, (col * SQUARESIZE, row * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
-                color = BLACK  # Default empty slot
+                color = BLACK  
                 if self.board[row][col] == PLAYER_PIECE:
                     color = RED
                 elif self.board[row][col] == AI_PIECE:
@@ -167,9 +154,9 @@ class AI:
                     return (None, 1000000)
                 elif board.winning_move(PLAYER_PIECE):
                     return (None, -1000000)
-                else:  # Game is over, no more valid moves
+                else:  
                     return (None, 0)
-            else:  # Depth is zero
+            else:  
                 return (None, board.score_position(AI_PIECE))
 
         if maximizing_player:
@@ -187,10 +174,10 @@ class AI:
                         best_col = col
                     alpha = max(alpha, value)
                     if alpha >= beta:
-                        break  # Alpha-beta pruning
+                        break  
             return best_col, value
 
-        else:  # Minimizing player
+        else:  
             value = math.inf
             best_col = random.choice(valid_locations)
             for col in valid_locations:
@@ -205,7 +192,7 @@ class AI:
                         best_col = col
                     beta = min(beta, value)
                     if alpha >= beta:
-                        break  # Alpha-beta pruning
+                        break  
             return best_col, value
 
 
@@ -265,7 +252,6 @@ class Game:
                                 self.board.draw_board(self.screen, self.my_font)
                                 self.turn = (self.turn + 1) % 2
 
-            # AI Turn
             if self.turn == AI_TURN and not self.game_over and self.not_over:
                 col, minimax_score = self.ai.minimax(self.board, self.ai.depth, -math.inf, math.inf, True)
 
@@ -286,7 +272,6 @@ class Game:
                         self.board.draw_board(self.screen, self.my_font)
                         self.turn = (self.turn + 1) % 2
 
-            # Check for Draw
             if not self.board.get_valid_locations() and self.not_over:
                 print("It's a Draw!")
                 label = self.my_font.render("DRAW!", 1, YELLOW)
@@ -294,8 +279,7 @@ class Game:
                 self.board.draw_board(self.screen, self.my_font)
                 self.not_over = False
                 Timer(3.0, self.end_game).start()
-
-            self.clock.tick(60)  # Limit to 60 FPS
+            self.clock.tick(60) 
 
 
 if __name__ == "__main__":
