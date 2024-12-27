@@ -140,7 +140,7 @@ class Board:
         pygame.display.update()
 
 
-class AI:
+class Minimax:
     def __init__(self, depth=6):
         self.depth = depth
 
@@ -203,7 +203,7 @@ class Game:
         pygame.display.set_caption("Connect 4")
         self.my_font = pygame.font.SysFont("monospace", 75)
         self.board = Board()
-        self.ai = AI(depth=6)
+        self.ai = Minimax(depth=6)
         self.game_over = False
         self.not_over = True
         self.turn = random.randint(PLAYER_TURN, AI_TURN)

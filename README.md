@@ -32,3 +32,27 @@ python main.py
 3. Exiting the Game
 - Click the close button on the game window or press Ctrl + C in the terminal to exit.
 
+## Gameplay
+
+<img src="Screenshot 2024-12-26 at 9.38.27 PM.png" alt="Connect 4 Bot Start" width="450"/>
+
+1. Starting the Game
+- Upon launching, the game window displays an empty Connect 4 board. A random player (either the human or AI) starts the game.
+2. Making a Move
+- Player's Turn: Move your mouse to select the desired column and click to drop your piece.
+- AI's Turn: The AI calculates and drops its piece automatically.
+3. Winning the Game
+- Once a player aligns four pieces, a winning message is displayed, and the game ends after a short delay.
+4. Draw Scenario
+- If all columns are filled without any player winning, a draw message is shown.
+
+## Code Structure
+
+This code is organised with into three main classes to ensure readability and modularity:
+
+1. The `Board` class 
+Contains all the functions that create the board, allow players to drop pieces, calculate Win, Loss, or Draw situations and scoring various possible positions on the board. 
+2. The `Minimax` class
+Contains the minimax function with alpha-beta pruning. 
+3. The `Game` class
+Contains the `end_game` and `run` functions where the `run` function acts as a standard main function that uses the `Board` and `Minimax` classes to run the game using pygame.
