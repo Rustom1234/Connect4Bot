@@ -247,7 +247,7 @@ class Game:
                                     self.screen.blit(label, (40, 10))
                                     self.board.draw_board(self.screen, self.my_font)
                                     self.not_over = False
-                                    Timer(3.0, self.end_game).start()
+                                    Timer(8.0, self.end_game).start()
 
                                 self.board.draw_board(self.screen, self.my_font)
                                 self.turn = (self.turn + 1) % 2
@@ -267,7 +267,7 @@ class Game:
                             self.screen.blit(label, (40, 10))
                             self.board.draw_board(self.screen, self.my_font)
                             self.not_over = False
-                            Timer(3.0, self.end_game).start()
+                            Timer(8.0, self.end_game).start()
 
                         self.board.draw_board(self.screen, self.my_font)
                         self.turn = (self.turn + 1) % 2
@@ -278,7 +278,7 @@ class Game:
                 self.screen.blit(label, (40, 10))
                 self.board.draw_board(self.screen, self.my_font)
                 self.not_over = False
-                Timer(3.0, self.end_game).start()
+                Timer(8.0, self.end_game).start()
             self.clock.tick(60) 
 
 
