@@ -1,6 +1,6 @@
 # Connect 4 Bot using MiniMax Algorithm #
 
-<img src="Screenshot 2024-12-26 at 9.10.49 PM.png" alt="Connect 4 Bot" width="450"/>
+<img src="images/Screenshot 2024-12-26 at 9.10.49 PM.png" alt="Connect 4 Bot" width="450"/>
 
 ## Introduction
 
@@ -61,17 +61,10 @@ Contains the `end_game` and `run` functions where the `run` function acts as a s
 
 ```
 Connect4Bot/
-├── images_of_app/
-│   └── matches.csv
-├── data/
-│   ├── ipl_data_2016.csv
-│   └── matches.csv
-├── code/
-│   ├── app.py
-│   └── model_pipeline.py
-├── model_pipeline/
-│   └── ipl_pipeline.pkl
-├──.gitattributes
+├── images/
+│   ├── Screenshot 2024-12-26 at 9.38.27 PM.png
+│   └── Screenshot 2024-12-26 at 9.10.49 PM.png
+├── main.py
 ├── requirements.txt
 └── README.md
 ```
