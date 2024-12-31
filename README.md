@@ -34,7 +34,7 @@ python main.py
 
 ## Gameplay
 
-<img src="Screenshot 2024-12-26 at 9.38.27 PM.png" alt="Connect 4 Bot Start" width="450"/>
+<img src="images/Screenshot 2024-12-26 at 9.38.27 PM.png" alt="Connect 4 Bot Start" width="450"/>
 
 1. Starting the Game
 - Upon launching, the game window displays an empty Connect 4 board. A random player (either the human or AI) starts the game.
