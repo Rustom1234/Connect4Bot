@@ -56,3 +56,22 @@ Contains all the functions that create the board, allow players to drop pieces, 
 Contains the minimax function with alpha-beta pruning. 
 3. The `Game` class
 Contains the `end_game` and `run` functions where the `run` function acts as a standard main function that uses the `Board` and `Minimax` classes to run the game using pygame.
+
+## Project Structure
+
+```
+Connect4Bot/
+├── images_of_app/
+│   └── matches.csv
+├── data/
+│   ├── ipl_data_2016.csv
+│   └── matches.csv
+├── code/
+│   ├── app.py
+│   └── model_pipeline.py
+├── model_pipeline/
+│   └── ipl_pipeline.pkl
+├──.gitattributes
+├── requirements.txt
+└── README.md
+```
