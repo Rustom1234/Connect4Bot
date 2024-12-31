@@ -281,7 +281,7 @@ class Game:
                 Timer(8.0, self.end_game).start()
             self.clock.tick(60) 
 
-
+# Call Main
 if __name__ == "__main__":
     game = Game()
     game.run()
