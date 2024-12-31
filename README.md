@@ -68,3 +68,7 @@ Connect4Bot/
 ├── requirements.txt
 └── README.md
 ```
+
+## Credit
+
+As this is a relatively commonly done project, I chose to create a Connect 4 Minimax Bot due to my interest in the game and a desire to learn more about the Minimax Algorithm and how many games implemented it. Similarly, there are many such public repositories on GitHub which I drew inspiration from and learned from but made my own implementation of what seemed to be the standard theory for coding a Connect 4 Minimax Bot.
